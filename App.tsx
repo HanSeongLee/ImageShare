@@ -7,16 +7,10 @@ export default function App() {
             <Image source={{
                 uri: 'https://i.imgur.com/TkIrScD.png'
             }}
-                   style={{
-                       width: 305,
-                       height: 159,
-                   }}
+                   style={styles.logo}
             />
 
-            <Text style={{
-                color: '#888',
-                fontSize: 18,
-            }}>
+            <Text style={styles.instructions}>
                 Text to share a photo from your phone with a friend, just press the button below!
             </Text>
             <StatusBar style="auto"/>
@@ -31,4 +25,14 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
     },
+    logo: {
+        width: 305,
+        height: 159,
+        marginBottom: 10,
+    },
+    instructions: {
+        color: '#888',
+        fontSize: 18,
+        marginHorizontal: 15,
+    }
 });
