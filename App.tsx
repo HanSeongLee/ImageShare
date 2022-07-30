@@ -1,9 +1,10 @@
 import {StatusBar} from 'expo-status-bar';
 import {Image, StyleSheet, Text, View, TouchableOpacity, Platform} from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
-import {useState} from 'react';
+import {useEffect, useState} from 'react';
 import {ImageInfo, ImagePickerCancelledResult} from 'expo-image-picker';
 import * as Sharing from 'expo-sharing';
+import * as SplashScreen from 'expo-splash-screen';
 
 export default function App() {
     const [selectedImage, setSelectedImage] = useState(null);
@@ -36,6 +37,11 @@ export default function App() {
 
         await Sharing.shareAsync(selectedImage.localUri);
     };
+
+    useEffect(() => {
+        SplashScreen.preventAutoHideAsync();
+        setTimeout(SplashScreen.hideAsync, 1500);
+    }, []);
 
     if (selectedImage !== null) {
         return (
