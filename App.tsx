@@ -1,11 +1,12 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Image, Text, View } from 'react-native';
-import logo from './assets/logo.png';
+import {StatusBar} from 'expo-status-bar';
+import {Image, StyleSheet, Text, View} from 'react-native';
 
 export default function App() {
     return (
         <View style={styles.container}>
-            <Image source={logo}
+            <Image source={{
+                uri: 'https://i.imgur.com/TkIrScD.png'
+            }}
                    style={{
                        width: 305,
                        height: 159,
