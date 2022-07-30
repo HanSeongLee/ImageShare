@@ -1,8 +1,9 @@
 import {StatusBar} from 'expo-status-bar';
-import {Image, StyleSheet, Text, View, TouchableOpacity} from 'react-native';
+import {Image, StyleSheet, Text, View, TouchableOpacity, Platform} from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 import {useState} from 'react';
 import {ImageInfo, ImagePickerCancelledResult} from 'expo-image-picker';
+import * as Sharing from 'expo-sharing';
 
 export default function App() {
     const [selectedImage, setSelectedImage] = useState(null);
@@ -27,6 +28,15 @@ export default function App() {
         });
     };
 
+    let openShareDialogAsync = async () => {
+        if (Platform.OS === 'web') {
+            alert(`Uh oh, sharing isn't available on your platform`);
+            return;
+        }
+
+        await Sharing.shareAsync(selectedImage.localUri);
+    };
+
     if (selectedImage !== null) {
         return (
             <View style={styles.container}>
@@ -35,6 +45,13 @@ export default function App() {
                 }}
                        style={styles.thumbnail}
                 />
+                <TouchableOpacity onPress={openShareDialogAsync}
+                                  style={styles.button}
+                >
+                    <Text style={styles.buttonText}>
+                        Share this photo
+                    </Text>
+                </TouchableOpacity>
             </View>
         );
     }
@@ -95,5 +112,6 @@ const styles = StyleSheet.create({
         width: 300,
         height: 300,
         resizeMode: 'contain',
+        marginBottom: 10,
     },
 });
