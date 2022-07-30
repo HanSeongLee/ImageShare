@@ -1,5 +1,5 @@
 import {StatusBar} from 'expo-status-bar';
-import {Image, StyleSheet, Text, View} from 'react-native';
+import {Image, StyleSheet, Text, View, TouchableOpacity} from 'react-native';
 
 export default function App() {
     return (
@@ -13,6 +13,20 @@ export default function App() {
             <Text style={styles.instructions}>
                 Text to share a photo from your phone with a friend, just press the button below!
             </Text>
+
+            <TouchableOpacity onPress={() => alert('Hello, world!')}
+                              style={{
+                                  backgroundColor: 'blue',
+                              }}
+            >
+                <Text style={{
+                    fontSize: 20,
+                    color: '#fff',
+                }}>
+                    Pick a photo
+                </Text>
+            </TouchableOpacity>
+
             <StatusBar style="auto"/>
         </View>
     );
