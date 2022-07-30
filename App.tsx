@@ -25,8 +25,6 @@ export default function App() {
         setSelectedImage({
             localUri: (pickerResult as ImageInfo).uri,
         });
-
-        console.log(pickerResult)
     };
 
     if (selectedImage !== null) {
