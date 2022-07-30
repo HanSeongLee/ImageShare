@@ -1,8 +1,12 @@
 import {StatusBar} from 'expo-status-bar';
 import {Image, StyleSheet, Text, View, TouchableOpacity} from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
+import {useState} from 'react';
+import {ImageInfo, ImagePickerCancelledResult} from 'expo-image-picker';
 
 export default function App() {
+    const [selectedImage, setSelectedImage] = useState(null);
+
     let openImagePickerAsync = async () => {
         let permissionResult = await ImagePicker.requestMediaLibraryPermissionsAsync();
 
@@ -11,9 +15,31 @@ export default function App() {
             return;
         }
 
-        let pickerResult = await ImagePicker.launchImageLibraryAsync();
-        console.log(pickerResult);
+        let pickerResult: ImagePickerCancelledResult | ImageInfo
+            = await ImagePicker.launchImageLibraryAsync();
+
+        if (pickerResult.cancelled) {
+            return ;
+        }
+
+        setSelectedImage({
+            localUri: (pickerResult as ImageInfo).uri,
+        });
+
+        console.log(pickerResult)
     };
+
+    if (selectedImage !== null) {
+        return (
+            <View style={styles.container}>
+                <Image source={{
+                    uri: selectedImage.localUri,
+                }}
+                       style={styles.thumbnail}
+                />
+            </View>
+        );
+    }
 
     return (
         <View style={styles.container}>
@@ -66,5 +92,10 @@ const styles = StyleSheet.create({
     buttonText: {
         fontSize: 20,
         color: '#fff',
+    },
+    thumbnail: {
+        width: 300,
+        height: 300,
+        resizeMode: 'contain',
     },
 });
